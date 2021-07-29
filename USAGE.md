@@ -7,7 +7,7 @@
 - [Common Examples](USAGE.md#common-example-commands)
 - [Logging Options](USAGE.md#logging-options)
 - [Compatibility Tests](USAGE.md#compatibility-tests)
-- [Statelessness Tests](USAGE.md#statelessness-tests)
+- [State Tests](USAGE.md#state-tests)
 - [Security Tests](USAGE.md#security-tests)
 - [Microservice Tests](USAGE.md#microservice-tests)
 - [Scalability Tests](USAGE.md#scalability-tests)
@@ -196,12 +196,12 @@ crystal src/cnf-testsuite.cr api_snoop_general_apis
 
 ---
 
-### Statelessness Tests
+### State Tests
 
-#### :heavy_check_mark: To run all of the statelessness tests
+#### :heavy_check_mark: To run all of the state tests
 
 ```
-./cnf-testsuite stateless
+./cnf-testsuite state
 ```
 
 #### :heavy_check_mark: To test if the CNF uses a volume host path
@@ -216,7 +216,7 @@ crystal src/cnf-testsuite.cr api_snoop_general_apis
 ./cnf-testsuite no_local_volume_configuration
 ```
 
-<details> <summary>Details for Statelessness Tests To Do's</summary>
+<details> <summary>Details for State Tests To Do's</summary>
 <p>
 
 #### :memo: (To Do) To test if the CNF responds properly [when being restarted](//https://github.com/litmuschaos/litmus)
@@ -288,6 +288,12 @@ crystal src/cnf-testsuite.cr protected_access
 
 ```
 ./cnf-testsuite reasonable_startup_time destructive
+```
+
+#### :heavy_check_mark: To check if the CNF has multiple process types within one container
+
+```
+./cnf-testsuite single_process_type
 ```
 
 ---
@@ -647,7 +653,13 @@ crystal src/cnf-testsuite.cr performance
 ./cnf-testsuite disk_fill
 ```
 
-#### :heavy_check_mark: Test if the CNF crashes when d
+#### :heavy_check_mark: Test if the CNF crashes when pod delete occurs
+
+```
+./cnf-conformance pod_delete
+```
+
+#### :heavy_check_mark: Test if the CNF crashes when pod memory hog occurs
 
 ```
 ./cnf-testsuite pod_memory_hog

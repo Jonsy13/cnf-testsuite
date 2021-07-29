@@ -35,6 +35,13 @@ describe "SampleUtils" do
     `./cnf-testsuite cnf_cleanup cnf-path=./sample-cnfs/sample-minimal-cnf/ force=true`
   end
 
+  it "'cnf_setup' should support cnf-config as an alias for cnf-path", tags: ["cnf-setup"] do
+    LOGGING.info `./cnf-testsuite cnf_setup cnf-config=./sample-cnfs/sample-minimal-cnf/ wait_count=0`
+    $?.success?.should be_true
+  ensure
+    `./cnf-testsuite cnf_cleanup cnf-path=./sample-cnfs/sample-minimal-cnf/ force=true`
+  end
+
   it "'points_yml' should parse and return the points yaml file", tags: ["points"]  do
     (CNFManager::Points.points_yml.find {|x| x["name"] =="liveness"}).should be_truthy 
   end
@@ -122,7 +129,7 @@ describe "SampleUtils" do
 
   it "'CNFManager::Points.all_task_test_names' should return all tasks names", tags: ["points"] do
     CNFManager::Points.clean_results_yml
-    (CNFManager::Points.all_task_test_names()).should eq(["reasonable_image_size", "reasonable_startup_time", "privileged", "increase_capacity", "decrease_capacity", "network_chaos", "pod_network_latency", "disk_fill", "ip_addresses", "liveness", "readiness", "rolling_update", "rolling_downgrade", "rolling_version_change", "rollback", "nodeport_not_used", "hardcoded_ip_addresses_in_k8s_runtime_configuration", "secrets_used", "immutable_configmap" , "helm_deploy", "install_script_helm", "helm_chart_valid", "helm_chart_published", "chaos_cpu_hog", "chaos_container_kill", "volume_hostpath_not_found", "no_local_volume_configuration"])
+    (CNFManager::Points.all_task_test_names()).should eq(["reasonable_image_size", "reasonable_startup_time", "single_process_type", "privileged", "increase_capacity", "decrease_capacity", "network_chaos", "pod_network_latency", "disk_fill", "ip_addresses", "liveness", "readiness", "rolling_update", "rolling_downgrade", "rolling_version_change", "rollback", "nodeport_not_used", "hardcoded_ip_addresses_in_k8s_runtime_configuration", "secrets_used", "immutable_configmap" , "helm_deploy", "install_script_helm", "helm_chart_valid", "helm_chart_published", "chaos_cpu_hog", "chaos_container_kill", "volume_hostpath_not_found", "no_local_volume_configuration"])
   end
 
   it "'CNFManager::Points.all_result_test_names' should return the tasks assigned to a tag", tags: ["points"] do
