@@ -647,6 +647,12 @@ crystal src/cnf-testsuite.cr performance
 ./cnf-testsuite disk_fill
 ```
 
+#### :heavy_check_mark: Test if the CNF crashes when d
+
+```
+./cnf-testsuite pod_memory_hog
+```
+
 ---
 
 ### Platform Tests
